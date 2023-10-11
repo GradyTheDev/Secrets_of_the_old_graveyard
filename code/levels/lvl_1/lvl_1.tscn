@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://blaqbvtw4cas8"]
+
+[ext_resource type="Texture2D" uid="uid://cs78m84tlyy3x" path="res://icon.svg" id="1_ho3vc"]
+[ext_resource type="Script" path="res://code/levels/lvl_1/lvl_1.gd" id="1_n8wya"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_n8wya")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(689, 295)
+texture = ExtResource("1_ho3vc")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 570.0
+offset_top = 40.0
+offset_right = 622.0
+offset_bottom = 66.0
+grow_horizontal = 2
+text = "Level 1"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 529.0
+offset_top = 559.0
+offset_right = 683.0
+offset_bottom = 590.0
+text = "Back to main menu"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

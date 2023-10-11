@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://8sdpivu3e1ap"]
+
+[ext_resource type="Script" path="res://code/menus/launcher/launcher.gd" id="1_bvlr2"]
+[ext_resource type="PackedScene" uid="uid://crs3nja17fdkg" path="res://code/menus/main/main_menu.tscn" id="2_jyxe4"]
+
+[node name="Launcher" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bvlr2")
+main_menu = ExtResource("2_jyxe4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Game Title"
+
+[node name="Skip" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -26.0
+offset_right = 42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press any key to skip"
+
+[node name="Version" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_right = 156.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Version?"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

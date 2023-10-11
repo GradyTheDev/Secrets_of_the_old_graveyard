@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://crs3nja17fdkg"]
+
+[ext_resource type="Theme" uid="uid://3m8ix4kn3aoe" path="res://resources/themes/default_theme.tres" id="1_hxagi"]
+[ext_resource type="Script" path="res://code/menus/main/main_menu.gd" id="2_3lfwf"]
+[ext_resource type="PackedScene" uid="uid://bixuvnj0ukhsj" path="res://code/code_resources/button_sound.tscn" id="3_js0nh"]
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hxagi")
+script = ExtResource("2_3lfwf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 525.0
+offset_top = 229.0
+offset_right = -525.0
+offset_bottom = -229.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Start" parent="Panel/VBoxContainer" instance=ExtResource("3_js0nh")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Start"
+
+[node name="Settings" parent="Panel/VBoxContainer" instance=ExtResource("3_js0nh")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Settings"
+
+[node name="Credits" parent="Panel/VBoxContainer" instance=ExtResource("3_js0nh")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Credits"
+
+[node name="Exit" parent="Panel/VBoxContainer" instance=ExtResource("3_js0nh")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Exit"
+
+[connection signal="button_up" from="Panel/VBoxContainer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/Credits" to="." method="_on_credits_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/Exit" to="." method="_on_exit_button_up"]

@@ -1,0 +1,54 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Spooktober 2023"
+run/main_scene="res://code/menus/launcher/launcher.tscn"
+config/features=PackedStringArray("4.1", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
+driver/mix_rate.web=44100
+
+[autoload]
+
+SceneHandler="*res://addons/scene_handler/scene_handler.tscn"
+GlobalSounds="*res://code/globals/global_sounds.tscn"
+SavesManager="*res://addons/saves_manager/saves_manager.gd"
+Shared="*res://code/globals/shared.gd"
+
+[debug]
+
+file_logging/max_log_files=1
+
+[display]
+
+window/size/initial_position_type=3
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/build_tools/plugin.cfg", "res://addons/saves_manager/plugin.cfg", "res://addons/scene_handler/plugin.cfg", "res://addons/simplelicense/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
+
+[gui]
+
+theme/custom="res://resources/themes/default_theme.tres"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

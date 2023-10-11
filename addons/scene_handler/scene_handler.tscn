@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://brhbk8mvi5tef"]
+
+[ext_resource type="Script" path="res://addons/scene_handler/scene_handler.gd" id="1_ehqvr"]
+
+[node name="SceneHandler" type="Node"]
+script = ExtResource("1_ehqvr")
+
+[node name="Main" type="Node" parent="."]
+
+[node name="Popups" type="Node" parent="."]
+
+[node name="Loading" type="Node" parent="."]

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LicenseLink" load_steps=2 format=3 uid="uid://b1kbpv61xt5rr"]
+
+[ext_resource type="Script" path="res://addons/simplelicense/api/LicenseLink.gd" id="1_w7qvt"]
+
+[resource]
+script = ExtResource("1_w7qvt")
+link_files = Array[Resource]([])
+link_dirs = Array[Resource]([])
+link_paths = ["./*"]
+componet_name = "Game"
+extra = ""
+license_identifier = "MIT"
+copyright = Array[String](["Copyright year, holder"])

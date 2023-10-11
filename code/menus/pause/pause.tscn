@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://drxqv7u4fhtpr"]
+
+[ext_resource type="Theme" uid="uid://3m8ix4kn3aoe" path="res://resources/themes/default_theme.tres" id="1_w1b6b"]
+[ext_resource type="Script" path="res://code/menus/pause/pause.gd" id="2_s4poh"]
+[ext_resource type="PackedScene" uid="uid://bixuvnj0ukhsj" path="res://code/code_resources/button_sound.tscn" id="3_h7pul"]
+
+[node name="Pause" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 490.0
+offset_top = 230.0
+offset_right = -490.0
+offset_bottom = -230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_w1b6b")
+script = ExtResource("2_s4poh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.5
+offset_right = 23.5
+offset_bottom = 26.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Pause"
+
+[node name="Back" parent="Panel" instance=ExtResource("3_h7pul")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = -31.0
+offset_right = 22.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Back"
+
+[connection signal="button_up" from="Panel/Back" to="." method="_on_back_button_up"]
