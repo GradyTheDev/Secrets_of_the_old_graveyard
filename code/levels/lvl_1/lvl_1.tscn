@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://blaqbvtw4cas8"]
+[gd_scene load_steps=6 format=3 uid="uid://blaqbvtw4cas8"]
 
 [ext_resource type="Texture2D" uid="uid://cs78m84tlyy3x" path="res://icon.svg" id="1_ho3vc"]
 [ext_resource type="Script" path="res://code/levels/lvl_1/lvl_1.gd" id="1_n8wya"]
+[ext_resource type="PackedScene" uid="uid://dmt0wljcg610q" path="res://code/entities/player/player.tscn" id="3_eapdo"]
+[ext_resource type="Texture2D" uid="uid://cdtng7k7njycl" path="res://assets/placeholder_3.png" id="4_5xj5i"]
+[ext_resource type="PackedScene" uid="uid://rdbfkvjmsusj" path="res://code/items/item/item.tscn" id="4_o1807"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_n8wya")
@@ -14,18 +17,28 @@ texture = ExtResource("1_ho3vc")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 570.0
-offset_top = 40.0
-offset_right = 622.0
-offset_bottom = 66.0
+offset_left = 411.0
+offset_top = 4.0
+offset_right = 463.0
+offset_bottom = 30.0
 grow_horizontal = 2
 text = "Level 1"
 
 [node name="Back" type="Button" parent="."]
-offset_left = 529.0
-offset_top = 559.0
-offset_right = 683.0
-offset_bottom = 590.0
+offset_left = 794.0
+offset_top = 495.0
+offset_right = 948.0
+offset_bottom = 526.0
 text = "Back to main menu"
+
+[node name="Item" parent="." instance=ExtResource("4_o1807")]
+position = Vector2(241, 261)
+
+[node name="Item2" parent="." instance=ExtResource("4_o1807")]
+position = Vector2(240, 297)
+texture = ExtResource("4_5xj5i")
+
+[node name="Player" parent="." instance=ExtResource("3_eapdo")]
+position = Vector2(276, 261)
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

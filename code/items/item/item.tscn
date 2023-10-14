@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://rdbfkvjmsusj"]
+
+[ext_resource type="Script" path="res://code/items/item/item.gd" id="1_rg8ak"]
+[ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/placeholder_2.png" id="2_bk8er"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndjho"]
+radius = 12.0
+
+[node name="Item" type="Area2D"]
+z_index = -1
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_rg8ak")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ndjho")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_bk8er")

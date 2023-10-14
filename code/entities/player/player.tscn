@@ -24,6 +24,13 @@ motion_mode = 1
 script = ExtResource("1_v2rwk")
 speed = 50
 
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 14
+
+[node name="Collider" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_rehmc")
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rehmc")
 
@@ -39,25 +46,29 @@ bus = &"SFX"
 [node name="HUD" type="Control" parent="."]
 top_level = true
 layout_mode = 3
-offset_right = 960.0
+offset_top = 435.0
+offset_right = 130.0
 offset_bottom = 540.0
 
-[node name="ScrollsContainer" type="HBoxContainer" parent="HUD"]
-layout_mode = 1
-anchors_preset = 2
+[node name="Scroll" type="TextureRect" parent="HUD"]
+layout_mode = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
-
-[node name="Scroll" type="TextureRect" parent="HUD/ScrollsContainer"]
-layout_mode = 2
 texture = ExtResource("1_hgnp5")
 expand_mode = 2
 
-[node name="ScrollCounter" type="Label" parent="HUD/ScrollsContainer"]
+[node name="ScrollCounter" type="Label" parent="HUD"]
 layout_mode = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -33.0
+offset_right = 91.0
+offset_bottom = -7.0
+grow_vertical = 0
 text = "15 left"
 
 [node name="HeldItem" type="TextureRect" parent="HUD"]
@@ -70,3 +81,19 @@ offset_right = 40.0
 offset_bottom = -55.0
 grow_vertical = 0
 texture = ExtResource("1_hgnp5")
+expand_mode = 1
+
+[node name="HeldItemLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -100.0
+offset_right = 148.0
+offset_bottom = -48.0
+grow_vertical = 0
+text = "Q: drop
+E: interact"
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_entered"]
