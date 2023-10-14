@@ -81,10 +81,10 @@ offset_top = -95.0
 offset_right = 40.0
 offset_bottom = -55.0
 grow_vertical = 0
-texture = ExtResource("1_hgnp5")
 expand_mode = 1
 
 [node name="HeldItemLabel" type="Label" parent="HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
