@@ -1,13 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqaxx0vlmj3lc"]
+[gd_scene load_steps=5 format=3 uid="uid://cqaxx0vlmj3lc"]
 
+[ext_resource type="PackedScene" uid="uid://d11bu8u7jf76i" path="res://code/menus/credits/short_credits.tscn" id="2_03yym"]
 [ext_resource type="Script" path="res://code/menus/credits/credits.gd" id="2_5xfmh"]
 [ext_resource type="PackedScene" uid="uid://bixuvnj0ukhsj" path="res://code/code_resources/button_sound.tscn" id="3_2q331"]
 [ext_resource type="PackedScene" uid="uid://bap5x6kis6j2a" path="res://addons/simplelicense/GUI/LicenseGUI.tscn" id="3_hosfm"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dp4e"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmmq5"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
 
 [node name="Credits" type="Control"]
 process_mode = 3
@@ -44,44 +40,31 @@ theme_override_constants/side_margin = 20
 [node name="Authors" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Authors"]
-custom_minimum_size = Vector2(600, 400)
+[node name="Panel" type="Panel" parent="TabContainer/Authors"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -200.0
-offset_right = 300.0
-offset_bottom = 200.0
+offset_left = -315.0
+offset_top = -219.5
+offset_right = 315.0
+offset_bottom = 219.5
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxFlat_6dp4e")
-theme_override_styles/normal = SubResource("StyleBoxFlat_vmmq5")
-bbcode_enabled = true
-text = "[center][b][font_size=30]Great game title[/font_size][/b]
-[b]
-- Project Leads - [/b]
 
-[b]- Art - [/b]
-
-[b]- Sound - [/b]
-
-[b]- Programming -[/b]
-
-[b]- Writer -[/b]
-
-[b]- Misc -[/b]
-
-[b]- You can find the game at - [/b][/center]
-"
-scroll_following = true
-selection_enabled = true
+[node name="Credits" parent="TabContainer/Authors/Panel" instance=ExtResource("2_03yym")]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="License" type="MarginContainer" parent="TabContainer"]
 visible = false

@@ -41,6 +41,8 @@ func _set_scrolls(v):
 	scrolls = v
 	node_scroll_counter.text = "%s" % scrolls
 	scrolls_changed.emit(scrolls)
+	if scrolls >= 15:
+		SceneHandler.change_main_scene.call_deferred(Shared.SCENES[Shared.SCENES_ENUM.victory])
 
 
 func _set_held_item(v):

@@ -3,6 +3,7 @@ extends Node
 enum SCENES_ENUM {
 	main_menu,
 	credits,
+	victory,
 }
 
 var SCENES: Array[PackedScene]
@@ -48,6 +49,7 @@ func _ready():
 	# SCENES
 	SCENES.append(load('res://code/menus/main/main_menu.tscn'))
 	SCENES.append(load('res://code/menus/credits/credits.tscn'))
+	SCENES.append(load('res://code/menus/victory/victory.tscn'))
 	
 	assert(len(SCENES_ENUM) == len(SCENES), self.name+": SCENES and it's enum doesn't have the same number of elements")
 	for key in SCENES_ENUM:
