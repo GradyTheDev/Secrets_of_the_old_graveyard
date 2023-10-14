@@ -34,6 +34,8 @@ func _process(delta: float):
 func _input(event):
 	if event.is_action("drop_item") and Input.is_action_just_released("drop_item"):
 		held_item = null
+	elif event.is_action("ui_cancel") and Input.is_action_just_released("ui_cancel"):
+		SceneHandler.add_popup(Shared.POPUPS[Shared.POPUPS_ENUM.pause])
 
 func _set_scrolls(v):
 	scrolls = v
