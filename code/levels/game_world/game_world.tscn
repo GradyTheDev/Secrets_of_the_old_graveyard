@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbx2y3axaw0h4"]
+
+[ext_resource type="PackedScene" uid="uid://dmt0wljcg610q" path="res://code/entities/player/player.tscn" id="1_x6nmr"]
+[ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="2_0jk0x"]
+[ext_resource type="PackedScene" uid="uid://rdbfkvjmsusj" path="res://code/items/item/item.tscn" id="3_0l64d"]
+
+[node name="GameWorld" type="Node2D"]
+
+[node name="GameWorldRenderSize" parent="." instance=ExtResource("2_0jk0x")]
+offset_right = 480.0
+offset_bottom = 270.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+zoom = Vector2(2, 2)
+
+[node name="Graveyard" type="TileMap" parent="."]
+format = 2
+
+[node name="Overlay" type="TileMap" parent="."]
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("1_x6nmr")]
+position = Vector2(164, 123)
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Item" parent="Items" instance=ExtResource("3_0l64d")]
+position = Vector2(217, 123)

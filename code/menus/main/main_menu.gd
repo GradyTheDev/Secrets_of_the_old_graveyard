@@ -2,7 +2,7 @@ extends Control
 
 func _on_start_button_up():
 	# TODO: Replace this
-	SceneHandler.change_main_scene("res://code/levels/lvl_1/lvl_1.tscn", 2, 3)
+	SceneHandler.change_main_scene("res://code/levels/game_world/game_world_interface.tscn", 2, 3)
 
 
 func _on_settings_button_up():

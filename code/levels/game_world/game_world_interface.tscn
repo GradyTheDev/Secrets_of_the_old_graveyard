@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://blw7ccqolpuox"]
+
+[ext_resource type="Script" path="res://code/levels/game_world/game_world_interface.gd" id="1_cs47x"]
+[ext_resource type="PackedScene" uid="uid://bbx2y3axaw0h4" path="res://code/levels/game_world/game_world.tscn" id="1_v7j8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tr0kd"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yjcb4"]
+viewport_path = NodePath("GameWorldInputPassthrough/GameWorldRenderer")
+
+[node name="GameWorldInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cs47x")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tr0kd")
+
+[node name="PixelPerfectDisplay" type="TextureRect" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_yjcb4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameWorldInputPassthrough" type="SubViewportContainer" parent="."]
+editor_description = "This node is a \"dummy\" node, 
+and isn't suppose to be drawn to the window.
+Leave the light mask and visibility layers empty/unchecked.
+"
+visibility_layer = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameWorldRenderer" type="SubViewport" parent="GameWorldInputPassthrough"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(960, 539)
+render_target_update_mode = 4
+
+[node name="GameWorld" parent="GameWorldInputPassthrough/GameWorldRenderer" instance=ExtResource("1_v7j8f")]
