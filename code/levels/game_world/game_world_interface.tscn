@@ -40,7 +40,8 @@ stretch_mode = 5
 [node name="GameWorldInputPassthrough" type="SubViewportContainer" parent="."]
 editor_description = "This node is a \"dummy\" node, 
 and isn't suppose to be drawn to the window.
-Leave the light mask and visibility layers empty/unchecked.
+Leave the visibility layers empty/unchecked.
+(Keep the light mask checked though, you need that)
 "
 visibility_layer = 0
 layout_mode = 1
