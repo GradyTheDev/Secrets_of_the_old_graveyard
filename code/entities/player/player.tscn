@@ -45,6 +45,7 @@ bus = &"SFX"
 bus = &"SFX"
 
 [node name="GameWorldRenderSize" parent="." instance=ExtResource("3_2g75d")]
+visible = false
 offset_right = 480.0
 offset_bottom = 270.0
 
@@ -99,7 +100,7 @@ offset_top = -100.0
 offset_right = 148.0
 offset_bottom = -48.0
 grow_vertical = 0
-text = "Q: drop
-E: interact"
+text = "L: drop
+J: interact"
 
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_entered"]
