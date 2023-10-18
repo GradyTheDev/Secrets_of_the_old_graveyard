@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://blw7ccqolpuox"]
+[gd_scene load_steps=8 format=3 uid="uid://blw7ccqolpuox"]
 
 [ext_resource type="Script" path="res://code/levels/game_world/game_world_interface.gd" id="1_cs47x"]
 [ext_resource type="PackedScene" uid="uid://bbx2y3axaw0h4" path="res://code/levels/game_world/game_world.tscn" id="1_v7j8f"]
+[ext_resource type="Texture2D" uid="uid://b6fkga07dp1fl" path="res://assets/placeholder.png" id="2_h11sx"]
+[ext_resource type="Script" path="res://code/levels/game_world/HUD.gd" id="2_pt3hb"]
+[ext_resource type="Texture2D" uid="uid://cs78m84tlyy3x" path="res://icon.svg" id="3_63ycx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tr0kd"]
 bg_color = Color(0, 0, 0, 1)
@@ -36,6 +39,70 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_yjcb4")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="HUD" type="Control" parent="PixelPerfectDisplay" node_paths=PackedStringArray("player")]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -105.0
+offset_right = 130.0
+grow_vertical = 0
+rotation = -0.00175821
+script = ExtResource("2_pt3hb")
+player = NodePath("../../GameWorldInputPassthrough/GameWorldRenderer/GameWorld/Player")
+
+[node name="Icon" type="Sprite2D" parent="PixelPerfectDisplay/HUD"]
+position = Vector2(39.6909, -392.931)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_63ycx")
+
+[node name="Scroll" type="TextureRect" parent="PixelPerfectDisplay/HUD"]
+layout_mode = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+texture = ExtResource("2_h11sx")
+expand_mode = 2
+
+[node name="ScrollCounter" type="Label" parent="PixelPerfectDisplay/HUD"]
+layout_mode = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -33.0
+offset_right = 91.0
+offset_bottom = -7.0
+grow_vertical = 0
+text = "15 left"
+
+[node name="HeldItem" type="TextureRect" parent="PixelPerfectDisplay/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -95.0
+offset_right = 40.0
+offset_bottom = -55.0
+grow_vertical = 0
+expand_mode = 1
+
+[node name="HeldItemLabel" type="Label" parent="PixelPerfectDisplay/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -100.0
+offset_right = 148.0
+offset_bottom = -48.0
+grow_vertical = 0
+text = "L: drop
+J: interact"
 
 [node name="GameWorldInputPassthrough" type="SubViewportContainer" parent="."]
 editor_description = "This node is a \"dummy\" node, 
