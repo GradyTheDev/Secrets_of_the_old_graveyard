@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="3_2g75d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rehmc"]
-radius = 12.0
+radius = 9.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wxilv"]
 animations = [{
