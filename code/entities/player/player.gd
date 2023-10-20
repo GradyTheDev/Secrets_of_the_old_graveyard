@@ -31,7 +31,7 @@ var _input_buffer: Array[Vector2] = []
 var _last_direction: Vector2 = DIRECTION_NONE
 var _next_point: Vector2
 
-
+var _item_containment_node: Node
 
 func _ready():
 	# snap node to grid
@@ -136,7 +136,7 @@ func _set_held_item(v):
 		print("Player dropped ", held_item)
 		if not held_item.is_inside_tree():
 			held_item.position = global_position
-			get_parent().add_child(held_item)
+			_item_containment_node.add_child(held_item)
 		
 		held_item = null
 
@@ -146,6 +146,8 @@ func _set_held_item(v):
 	else:
 		node_held_item.texture = held_item.texture
 		if held_item.is_inside_tree():
+			if _item_containment_node == null:
+				_item_containment_node = held_item.get_parent()
 			held_item.get_parent().remove_child(held_item)
 		print("Player picked up ", held_item)
 	
