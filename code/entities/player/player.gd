@@ -31,12 +31,7 @@ var _input_buffer: Array[Vector2] = []
 var _last_direction: Vector2 = DIRECTION_NONE
 var _next_point: Vector2
 
-func press(key: InputEventKey):
-	key.pressed = true
-	_input(key)
-	key.pressed = false
-	_input(key)
-	print("Pressed ", key.as_text())
+
 
 func _ready():
 	# snap node to grid
