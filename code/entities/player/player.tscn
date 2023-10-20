@@ -44,6 +44,9 @@ bus = &"SFX"
 [node name="Death" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
+[node name="WallDetector" type="RayCast2D" parent="."]
+collision_mask = 3
+
 [node name="GameWorldRenderSize" parent="." instance=ExtResource("3_2g75d")]
 visible = false
 offset_right = 480.0
