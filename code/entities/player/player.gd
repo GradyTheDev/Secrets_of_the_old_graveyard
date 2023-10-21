@@ -28,54 +28,82 @@ var _tile_size := Vector2(24,24)
 var _offset := (_tile_size / 2).round()
 
 var _input_buffer: Array[Vector2] = []
-var _last_direction: Vector2 = DIRECTION_NONE
 var _next_point: Vector2
 
 var _item_containment_node: Node
+
+class DirectionCheck:
+	var can_move: bool = false
+	var grid_point: Vector2
+	var grid_position: Vector2
+
+	func _init(_can_move: bool, _grid_point: Vector2, _grid_position: Vector2):
+		can_move = _can_move
+		grid_point = _grid_point
+		grid_position = _grid_position
+
+
+## Only call this from the physics thread, due to the raycast
+func can_move_to_node_in_direction(direction: Vector2) -> DirectionCheck:
+	direction = direction
+
+	# Grid check
+	var current_grid_point := (position - _offset) / _tile_size
+
+	var target_grid_point = current_grid_point.round() + direction
+	var target_grid_position = target_grid_point * _tile_size + _offset
+
+	var dir = current_grid_point.direction_to(target_grid_point)
+	var is_movement_on_grid_line = not (dir.x != 0 and dir.y != 0)
+
+	if not is_movement_on_grid_line:
+		return DirectionCheck.new(false, target_grid_point, target_grid_position)
+	
+	# Physics check
+	node_wall_detector.target_position = target_grid_position - position
+	node_wall_detector.force_raycast_update()
+	if node_wall_detector.is_colliding():
+		return DirectionCheck.new(false, target_grid_point, target_grid_position)
+	else:
+		return DirectionCheck.new(true, target_grid_point, target_grid_position)
+
 
 func _ready():
 	# snap node to grid
 	position = snap_point_to_grid(position)
 	_next_point = position
 
+
 func snap_point_to_grid(point: Vector2) -> Vector2:
 	return (point / _tile_size).floor() * _tile_size + _offset
 
 
-func distance_to_nearest_grid_point(point: Vector2) -> float:
-	return snap_point_to_grid(point).distance_to(point)
-
-
-func is_point_on_grid(point: Vector2, margin: float = 0) -> bool:
-	return distance_to_nearest_grid_point(point) <= margin
-
-
 func _physics_process(delta: float):
-	# Start: Calculate direction / next grid point
+	# Start: Calculate movement
 	var direction = DIRECTION_NONE
 
-	if _input_buffer.size() != 0:
-		direction = _input_buffer[0]
-	
-	if direction != DIRECTION_NONE:
-		var np = _next_point
-		if position == _next_point:
-			# can move in any direction
-			np += direction * _tile_size
-		elif direction * -1 == _last_direction:
-			# can only reverse direction
-			np += direction * _tile_size
-		
-		if np != _next_point: # only raycast when changing directions
-			# Check if np collides with a wall or not, if so, ignore this input
-			node_wall_detector.target_position = direction * _tile_size
-			node_wall_detector.force_raycast_update()
-			if not node_wall_detector.is_colliding():
-				_next_point = np # ^
-				_last_direction = direction # ^
-	# End: Calculate direction / next grid point
+	# Only check last input in input buffer
+	# if _input_buffer.size() == 0:
+	# 	_next_point = position
+	# else:
+	# 	direction = _input_buffer[-1]
+	# 	var check = can_move_to_node_in_direction(direction)
+	# 	if check.can_move:
+	# 		_next_point = check.grid_position
 
-	# Start: Movement
+	# Check all inputs in input buffer, in reverse order (latest input to oldest input)
+	for i in range(_input_buffer.size() - 1, -1, -1):
+		if _input_buffer.size() == 0:
+			_next_point = position
+		else:
+			direction = _input_buffer[i]
+			var check = can_move_to_node_in_direction(direction)
+			if check.can_move:
+				_next_point = check.grid_position
+				break
+	# End: Calculate movement
+
+	# Start: Move
 	if position.distance_to(_next_point) == 0:
 		return
 	
@@ -87,8 +115,7 @@ func _physics_process(delta: float):
 
 	if position.distance_to(_next_point) < 1.0:
 		position = _next_point
-		_last_direction = DIRECTION_NONE
-	# End: Movement
+	# End: Move
 
 func _input(event: InputEvent):
 	if event.is_action("drop_item") and Input.is_action_just_released("drop_item"):

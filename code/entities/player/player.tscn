@@ -45,6 +45,7 @@ bus = &"SFX"
 bus = &"SFX"
 
 [node name="WallDetector" type="RayCast2D" parent="."]
+enabled = false
 collision_mask = 3
 
 [node name="GameWorldRenderSize" parent="." instance=ExtResource("3_2g75d")]
