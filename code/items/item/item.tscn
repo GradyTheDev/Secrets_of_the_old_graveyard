@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://code/items/item/item.gd" id="1_rg8ak"]
 [ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/placeholder_2.png" id="2_bk8er"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ndjho"]
-radius = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qc3dh"]
+size = Vector2(16, 16)
 
 [node name="Item" type="Area2D"]
 collision_layer = 8
@@ -12,7 +12,7 @@ collision_mask = 0
 script = ExtResource("1_rg8ak")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ndjho")
+shape = SubResource("RectangleShape2D_qc3dh")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_bk8er")
