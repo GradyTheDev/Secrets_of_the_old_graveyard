@@ -42,6 +42,13 @@ const AUDIO_BUS_NAMES := {
 	SETTING_KEY_AUDIO_VOICE: 'Voice',
 }
 
+var game_time: float # seconds
+var day_night_cycle_duration: float = 5
+
+## -1.0 to 1.0; -1 is night 1 is day
+func get_game_cycle() -> float:
+	return sin(((game_time - floor(game_time / (game_time * 2))) / day_night_cycle_duration) * PI)
+
 func _ready():
 	var v = load("res://code/menus/loading/loading_screen.tscn") as PackedScene
 	SceneHandler.current_loading_screen = v.instantiate()

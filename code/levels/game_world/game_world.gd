@@ -6,7 +6,10 @@ var _grave_normal = Vector2i(2, 0)
 var _grave_haunted = Vector2i(3, 0)
 
 func _ready():
-	generate_haunted_graves(5)
+	Shared.game_time = 0
+
+func _process(delta: float):
+	Shared.game_time += delta
 
 func clear_haunted_graves():
 	var cells = node_graveyard_tilemap.get_used_cells(0)
