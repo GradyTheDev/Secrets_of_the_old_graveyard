@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buqqkdi7nq4wx"
-path="res://.godot/imported/chaser_2.png-ded0998d25a639ad68aa2a006855e838.ctex"
+uid="uid://chmng2hql3jxv"
+path="res://.godot/imported/goat_eye.png-f6d2758bd7724f2b9d51e61324b204b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chaser_2.png"
-dest_files=["res://.godot/imported/chaser_2.png-ded0998d25a639ad68aa2a006855e838.ctex"]
+source_file="res://assets/art/goat_eye.png"
+dest_files=["res://.godot/imported/goat_eye.png-f6d2758bd7724f2b9d51e61324b204b1.ctex"]
 
 [params]
 

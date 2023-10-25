@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwc8hi5m8cswc"
-path="res://.godot/imported/chaser_5.png-bf524cf5aefaf222cb676a38d6fe581a.ctex"
+uid="uid://ct468p27xx4ir"
+path="res://.godot/imported/ghost_day.png-72cccc2705b365c0fea75b18edc0689d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chaser_5.png"
-dest_files=["res://.godot/imported/chaser_5.png-bf524cf5aefaf222cb676a38d6fe581a.ctex"]
+source_file="res://assets/art/ghost_day.png"
+dest_files=["res://.godot/imported/ghost_day.png-72cccc2705b365c0fea75b18edc0689d.ctex"]
 
 [params]
 

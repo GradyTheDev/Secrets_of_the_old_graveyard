@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pmo36r0l6k1n"
-path="res://.godot/imported/chaser_4.png-7ccf54dc87eef48e8a2e0b40100200f9.ctex"
+uid="uid://wayuhasymtxv"
+path="res://.godot/imported/red_ghost.png-e7d896c831b51af999418bfb8f6101a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chaser_4.png"
-dest_files=["res://.godot/imported/chaser_4.png-7ccf54dc87eef48e8a2e0b40100200f9.ctex"]
+source_file="res://assets/art/red_ghost.png"
+dest_files=["res://.godot/imported/red_ghost.png-e7d896c831b51af999418bfb8f6101a2.ctex"]
 
 [params]
 

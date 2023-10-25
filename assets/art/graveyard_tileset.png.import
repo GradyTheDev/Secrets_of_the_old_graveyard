@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://60sdm2fpbsx4"
-path="res://.godot/imported/chaser_3.png-f80f60a17d2746f5fde05c27c00d249b.ctex"
+uid="uid://30s3myko3ljy"
+path="res://.godot/imported/graveyard_tileset.png-399213185902f6ccafc5fe1be04d088f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chaser_3.png"
-dest_files=["res://.godot/imported/chaser_3.png-f80f60a17d2746f5fde05c27c00d249b.ctex"]
+source_file="res://assets/art/graveyard_tileset.png"
+dest_files=["res://.godot/imported/graveyard_tileset.png-399213185902f6ccafc5fe1be04d088f.ctex"]
 
 [params]
 
