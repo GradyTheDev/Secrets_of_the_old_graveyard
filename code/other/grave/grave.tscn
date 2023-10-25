@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://drhwmvor8k4di"]
+
+[ext_resource type="Script" path="res://code/other/grave/grave.gd" id="1_agqnm"]
+[ext_resource type="Texture2D" uid="uid://ct468p27xx4ir" path="res://assets/art/ghost_day.png" id="2_2mxje"]
+[ext_resource type="Texture2D" uid="uid://fcg7474fuqrf" path="res://assets/art/ghost_night.png" id="3_oqh8m"]
+[ext_resource type="AudioStream" uid="uid://bu202kb37x2oc" path="res://assets/sound/Spooktober_SoundDesign_1_GhostTalk_3.ogg" id="4_iajes"]
+[ext_resource type="AudioStream" uid="uid://c627a13gd42cs" path="res://assets/sound/Spooktober_SoundDesign_1_player_ghost_interact.ogg" id="5_o5m6h"]
+[ext_resource type="AudioStream" uid="uid://ro8rp34gx4li" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Disappear.ogg" id="6_iv213"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vysbi"]
+size = Vector2(71, 71)
+
+[sub_resource type="Animation" id="Animation_y1gw7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_drrry"]
+resource_name = "night"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_oqh8m")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_14u5b"]
+resource_name = "request"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_2mxje")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gc1w"]
+_data = {
+"RESET": SubResource("Animation_y1gw7"),
+"night": SubResource("Animation_drrry"),
+"request": SubResource("Animation_14u5b")
+}
+
+[node name="Grave" type="Area2D"]
+collision_layer = 2
+collision_mask = 16
+script = ExtResource("1_agqnm")
+
+[node name="Trigger" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vysbi")
+
+[node name="Ghost" type="Sprite2D" parent="."]
+region_rect = Rect2(22.045, 0, 0, 0)
+
+[node name="Request" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.7, 0.7)
+
+[node name="Timer" type="Timer" parent="Request"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6gc1w")
+}
+
+[node name="Talking" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_iajes")
+volume_db = -10.0
+bus = &"Voice"
+
+[node name="Interact" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_o5m6h")
+volume_db = -10.0
+bus = &"Voice"
+
+[node name="Cured" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_iv213")
+bus = &"Voice"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="Request/Timer" to="." method="_on_request_timer_timeout"]

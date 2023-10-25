@@ -1,15 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbx2y3axaw0h4"]
+[gd_scene load_steps=17 format=3 uid="uid://bbx2y3axaw0h4"]
 
 [ext_resource type="Script" path="res://code/levels/game_world/game_world.gd" id="1_4nln3"]
 [ext_resource type="PackedScene" uid="uid://dmt0wljcg610q" path="res://code/entities/player/player.tscn" id="1_x6nmr"]
 [ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="2_0jk0x"]
-[ext_resource type="Texture2D" uid="uid://30s3myko3ljy" path="res://assets/graveyard_tileset.png" id="2_ttt76"]
-[ext_resource type="PackedScene" uid="uid://rdbfkvjmsusj" path="res://code/items/item/item.tscn" id="3_0l64d"]
+[ext_resource type="Texture2D" uid="uid://30s3myko3ljy" path="res://assets/art/graveyard_tileset.png" id="2_ttt76"]
+[ext_resource type="AudioStream" uid="uid://cax851xep6fpt" path="res://assets/sound/Spooktober_SoundDesign_1_Ambience_Day_1.0.ogg" id="5_ian03"]
+[ext_resource type="AudioStream" uid="uid://8bt537doj6o2" path="res://assets/sound/Spooktober_SoundDesign_1_Ambience_Night_1.55.ogg" id="6_fyhem"]
+[ext_resource type="AudioStream" uid="uid://d24fdo5b615fs" path="res://assets/sound/Spooktober_Music_Night_1.0.ogg" id="7_k68m2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rbrrv"]
 vertices = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)])
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yojju"]
+polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i0uan"]
+polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_resc1"]
+polygon = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f67fs"]
+polygon = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4d2q5"]
 vertices = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
@@ -28,6 +42,7 @@ texture_region_size = Vector2i(24, 24)
 0:0/0/physics_layer_2/angular_velocity = 0.0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_rbrrv")
 1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_i0uan")
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
@@ -36,6 +51,7 @@ texture_region_size = Vector2i(24, 24)
 1:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_2/angular_velocity = 0.0
 2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_resc1")
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
 2:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
@@ -44,6 +60,7 @@ texture_region_size = Vector2i(24, 24)
 2:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_2/angular_velocity = 0.0
 3:0/0 = 0
+3:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_f67fs")
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
@@ -61,6 +78,7 @@ texture_region_size = Vector2i(24, 24)
 4:0/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_4d2q5")
 0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_yojju")
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
@@ -71,6 +89,7 @@ texture_region_size = Vector2i(24, 24)
 
 [sub_resource type="TileSet" id="TileSet_efovn"]
 tile_size = Vector2i(24, 24)
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2
@@ -79,6 +98,13 @@ physics_layer_2/collision_mask = 4
 navigation_layer_0/layers = 1
 navigation_layer_1/layers = 2
 sources/0 = SubResource("TileSetAtlasSource_pm8j4")
+
+[sub_resource type="Environment" id="Environment_3tael"]
+background_mode = 1
+background_energy_multiplier = 0.0
+ambient_light_source = 1
+ambient_light_energy = 0.0
+reflected_light_source = 1
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_4nln3")
@@ -99,10 +125,34 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536
 [node name="Overlay" type="TileMap" parent="."]
 format = 2
 
+[node name="Graves" type="Node2D" parent="."]
+
+[node name="Ghosts" type="Node2D" parent="."]
+
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Item" parent="Items" instance=ExtResource("3_0l64d")]
-position = Vector2(61, 35)
-
 [node name="Player" parent="." instance=ExtResource("1_x6nmr")]
-position = Vector2(36, 60)
+position = Vector2(156, 109)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3tael")
+
+[node name="Light" type="DirectionalLight2D" parent="."]
+position = Vector2(240, 135)
+scale = Vector2(4.05, 276)
+energy = 0.0
+
+[node name="AmbientDay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ian03")
+volume_db = -12.0
+bus = &"Music"
+
+[node name="AmbientNight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fyhem")
+volume_db = -12.0
+bus = &"Music"
+
+[node name="NightMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_k68m2")
+volume_db = -15.0
+bus = &"Music"

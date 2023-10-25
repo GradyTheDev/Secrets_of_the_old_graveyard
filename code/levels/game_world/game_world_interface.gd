@@ -11,4 +11,4 @@ func _ready():
 		await get_tree().process_frame
 		await get_tree().process_frame
 	
-	SceneHandler.add_popup(Shared.POPUPS[Shared.POPUPS_ENUM.pause])
+	# SceneHandler.add_popup(Shared.POPUPS[Shared.POPUPS_ENUM.pause])

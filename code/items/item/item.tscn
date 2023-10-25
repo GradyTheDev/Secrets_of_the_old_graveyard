@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://rdbfkvjmsusj"]
 
 [ext_resource type="Script" path="res://code/items/item/item.gd" id="1_rg8ak"]
-[ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/placeholder_2.png" id="2_bk8er"]
+[ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/art/placeholder_2.png" id="2_bk8er"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qc3dh"]
-size = Vector2(16, 16)
+size = Vector2(23, 23)
 
 [node name="Item" type="Area2D"]
 collision_layer = 8

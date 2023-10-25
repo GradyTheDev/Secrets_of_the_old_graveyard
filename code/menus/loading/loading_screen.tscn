@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b75uxdhproq4t"]
+[gd_scene load_steps=3 format=3 uid="uid://b75uxdhproq4t"]
 
 [ext_resource type="Script" path="res://code/menus/loading/loading_screen.gd" id="1_g3vuc"]
+[ext_resource type="Texture2D" uid="uid://cjr3lq48hmiv3" path="res://assets/art/mainmenu.png" id="2_u6bva"]
 
 [node name="LoadingScreen" type="Control"]
 z_index = 4096
@@ -11,6 +12,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g3vuc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_u6bva")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

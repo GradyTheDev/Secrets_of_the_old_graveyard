@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://code/menus/victory/victory.gd" id="1_xbsu4"]
 [ext_resource type="PackedScene" uid="uid://d11bu8u7jf76i" path="res://code/menus/credits/short_credits.tscn" id="2_houhs"]
-[ext_resource type="Texture2D" uid="uid://b6fkga07dp1fl" path="res://assets/placeholder.png" id="3_x4j52"]
-[ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/placeholder_2.png" id="4_ivvnx"]
-[ext_resource type="Texture2D" uid="uid://cdtng7k7njycl" path="res://assets/placeholder_3.png" id="5_k4aim"]
+[ext_resource type="Texture2D" uid="uid://b6fkga07dp1fl" path="res://assets/art/placeholder.png" id="3_x4j52"]
+[ext_resource type="Texture2D" uid="uid://dxyjexexqht8e" path="res://assets/art/placeholder_2.png" id="4_ivvnx"]
+[ext_resource type="Texture2D" uid="uid://cdtng7k7njycl" path="res://assets/art/placeholder_3.png" id="5_k4aim"]
 
 [sub_resource type="Animation" id="Animation_eoh4a"]
 length = 0.001
@@ -98,6 +98,11 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = -6.10352e-05
+focus_mode = 0
+scroll_active = false
+scroll_following = false
+shortcut_keys_enabled = false
+selection_enabled = false
 
 [node name="MainMenu" type="Button" parent="."]
 layout_mode = 1

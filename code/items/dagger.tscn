@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://drfrpph6pd8ck"]
+
+[ext_resource type="PackedScene" uid="uid://rdbfkvjmsusj" path="res://code/items/item/item.tscn" id="1_q2voo"]
+[ext_resource type="Texture2D" uid="uid://bi4d0dpeo2hb2" path="res://assets/art/dagger.png" id="2_15lye"]
+
+[node name="Item" instance=ExtResource("1_q2voo")]
+texture = ExtResource("2_15lye")
+item_type = "dagger"

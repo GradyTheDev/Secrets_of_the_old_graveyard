@@ -31,6 +31,7 @@ Shared="*res://code/globals/shared.gd"
 [debug]
 
 file_logging/max_log_files=1
+gdscript/warnings/enable=false
 
 [display]
 
@@ -38,6 +39,7 @@ window/size/viewport_width=960
 window/size/viewport_height=540
 window/size/initial_position_type=3
 window/stretch/aspect="ignore"
+window/warnings/enable=false
 
 [editor_plugins]
 
@@ -95,5 +97,6 @@ drop_item={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

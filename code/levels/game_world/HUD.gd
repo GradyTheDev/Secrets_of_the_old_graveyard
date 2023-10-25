@@ -50,7 +50,7 @@ func _root_viewport_size_changed():
 	var c = Vector2(0, a.size.y - b.size.y)
 	node_icon.global_position = Vector2.ZERO
 
-	print(a.size, ' ', b.size)
+	# print(a.size, ' ', b.size)
 
 
 func _draw():

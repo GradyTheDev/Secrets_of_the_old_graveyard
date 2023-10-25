@@ -1,18 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmt0wljcg610q"]
+[gd_scene load_steps=11 format=3 uid="uid://dmt0wljcg610q"]
 
-[ext_resource type="Texture2D" uid="uid://b6fkga07dp1fl" path="res://assets/placeholder.png" id="1_hgnp5"]
+[ext_resource type="Texture2D" uid="uid://b6fkga07dp1fl" path="res://assets/art/placeholder.png" id="1_hgnp5"]
 [ext_resource type="Script" path="res://code/entities/player/player.gd" id="1_v2rwk"]
+[ext_resource type="Texture2D" uid="uid://qji2b50ahyfq" path="res://assets/art/mc.png" id="2_ox7hi"]
 [ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="3_2g75d"]
+[ext_resource type="AudioStream" uid="uid://cxkhuauilpw57" path="res://assets/sound/Spooktober_SoundDesign_1_Player_Die.ogg" id="4_jr2wo"]
+[ext_resource type="Texture2D" uid="uid://b6ry43xd3l4ij" path="res://assets/art/scroll.png" id="5_0kog6"]
+[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/placeholder_6.png" id="5_15fb8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm0bs"]
-size = Vector2(18, 18)
+size = Vector2(23, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x27b8"]
-size = Vector2(16, 16)
+size = Vector2(22, 22)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wxilv"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ox7hi")
+}, {
 "duration": 1.0,
 "texture": ExtResource("1_hgnp5")
 }],
@@ -30,9 +37,16 @@ speed = 50
 
 [node name="InteractArea" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 14
+collision_mask = 12
 
 [node name="Collider" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_mm0bs")
+
+[node name="GraveDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collider" type="CollisionShape2D" parent="GraveDetector"]
 shape = SubResource("RectangleShape2D_mm0bs")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -45,6 +59,8 @@ sprite_frames = SubResource("SpriteFrames_wxilv")
 bus = &"SFX"
 
 [node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jr2wo")
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="WallDetector" type="RayCast2D" parent="."]
@@ -59,9 +75,10 @@ offset_bottom = 270.0
 top_level = true
 layout_mode = 3
 anchors_preset = 0
-offset_top = 165.0
+offset_top = 218.0
 offset_right = 130.0
-offset_bottom = 270.0
+offset_bottom = 323.0
+scale = Vector2(0.5, 0.5)
 
 [node name="Scroll" type="TextureRect" parent="HUD"]
 layout_mode = 2
@@ -69,8 +86,9 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
 offset_right = 40.0
+grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("1_hgnp5")
+texture = ExtResource("5_0kog6")
 expand_mode = 2
 
 [node name="ScrollCounter" type="Label" parent="HUD"]
@@ -81,7 +99,9 @@ offset_left = 44.0
 offset_top = -33.0
 offset_right = 91.0
 offset_bottom = -7.0
+grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 10
 text = "15 left"
 
 [node name="HeldItem" type="TextureRect" parent="HUD"]
@@ -96,17 +116,32 @@ grow_vertical = 0
 expand_mode = 1
 
 [node name="HeldItemLabel" type="Label" parent="HUD"]
-visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 44.0
-offset_top = -100.0
-offset_right = 148.0
-offset_bottom = -48.0
+offset_left = 122.0
+offset_top = -39.0
+offset_right = 166.0
+offset_bottom = -5.0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 10
 text = "L: drop
 J: interact"
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(3, 3)
+color = Color(0.839216, 0.580392, 0.235294, 1)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("5_15fb8")
+
+[node name="HeldItem" type="Sprite2D" parent="."]
+position = Vector2(-7, 5)
+scale = Vector2(0.5, 0.5)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_entered"]
+[connection signal="finished" from="Death" to="." method="_on_death_finished"]

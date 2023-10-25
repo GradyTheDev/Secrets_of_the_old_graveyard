@@ -122,13 +122,14 @@ func change_main_scene(value, use_loading_screen: int = 0, min_time_show_loading
 		await get_tree().create_timer(0.1).timeout
 	loaded_main_scene.emit()
 	
+	main_scene_container.process_mode = Node.PROCESS_MODE_INHERIT
+
 	if is_instance_valid(current_loading_screen) and \
 		current_loading_screen is Node \
 		and current_loading_screen.is_inside_tree():
 		await get_tree().create_timer(clamp(min_time_show_loading_screen, 0.01, 10)).timeout
 		current_loading_screen.get_parent().remove_child(current_loading_screen)
-	
-	main_scene_container.process_mode = Node.PROCESS_MODE_INHERIT
+
 
 func add_popup(pack_or_path_or_node) -> Node:
 	var popup: Node = null

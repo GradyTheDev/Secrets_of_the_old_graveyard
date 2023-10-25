@@ -15,6 +15,9 @@ signal held_item_changed(current_item)
 @onready var node_interact_area: Area2D = get_node("InteractArea")
 @onready var node_held_item_label: Label = get_node("HUD/HeldItemLabel")
 @onready var node_wall_detector: RayCast2D = get_node("WallDetector")
+@onready var node_grave_detector: Area2D = get_node("GraveDetector")
+@onready var node_sprite: AnimatedSprite2D = get_node("Sprite")
+@onready var node_item: Sprite2D = get_node("HeldItem")
 
 ## pixels / second
 @export var speed: int
@@ -58,7 +61,7 @@ func can_move_to_node_in_direction(direction: Vector2) -> DirectionCheck:
 
 	if not is_movement_on_grid_line:
 		return DirectionCheck.new(false, target_grid_point, target_grid_position)
-	
+
 	# Physics check
 	node_wall_detector.target_position = target_grid_position - position
 	node_wall_detector.force_raycast_update()
@@ -73,6 +76,20 @@ func _ready():
 	position = snap_point_to_grid(position)
 	_next_point = position
 
+	node_scroll_counter.text = "%s left" % Shared.scroll_win_count
+
+	Shared.time_of_day_changed.connect(_time_of_day_changed)
+
+func _time_of_day_changed(daytime: bool):
+	if not daytime:
+		held_item = null
+
+func _enter_tree():
+	Shared.player = self
+
+func _exit_tree():
+	Shared.player = null
+
 
 func snap_point_to_grid(point: Vector2) -> Vector2:
 	return (point / _tile_size).floor() * _tile_size + _offset
@@ -81,26 +98,17 @@ func snap_point_to_grid(point: Vector2) -> Vector2:
 func _physics_process(delta: float):
 	# Start: Calculate movement
 	var direction = DIRECTION_NONE
-
-	# Only check last input in input buffer
-	# if _input_buffer.size() == 0:
-	# 	_next_point = position
-	# else:
-	# 	direction = _input_buffer[-1]
-	# 	var check = can_move_to_node_in_direction(direction)
-	# 	if check.can_move:
-	# 		_next_point = check.grid_position
-
+	
+	if _input_buffer.size() == 0:
+		_next_point = position
+	
 	# Check all inputs in input buffer, in reverse order (latest input to oldest input)
 	for i in range(_input_buffer.size() - 1, -1, -1):
-		if _input_buffer.size() == 0:
-			_next_point = position
-		else:
-			direction = _input_buffer[i]
-			var check = can_move_to_node_in_direction(direction)
-			if check.can_move:
-				_next_point = check.grid_position
-				break
+		direction = _input_buffer[i]
+		var check = can_move_to_node_in_direction(direction)
+		if check.can_move:
+			_next_point = check.grid_position
+			break
 	# End: Calculate movement
 
 	# Start: Move
@@ -109,17 +117,32 @@ func _physics_process(delta: float):
 	
 	var motion = position.move_toward(_next_point, speed * delta) - position
 
+	var dir = position.direction_to(_next_point).x
+	if dir != 0:
+		node_sprite.flip_h = dir < 0
+		node_item.position.x = -dir * 8
+
 	var col := move_and_collide(motion)
+	position = position.round() # fixes grid based movement problems, by rounding sub-pixel movement 
 	if col != null:
 		print('player collided with ', col)
 
-	if position.distance_to(_next_point) < 1.0:
-		position = _next_point
 	# End: Move
 
 func _input(event: InputEvent):
 	if event.is_action("drop_item") and Input.is_action_just_released("drop_item"):
 		held_item = null
+	elif event.is_action("interact") and Input.is_action_just_released("interact"):
+		var v = node_grave_detector.get_overlapping_areas()
+		if len(v) > 0 and held_item != null:
+			v = v[0] as Grave
+			if held_item.item_type == v.requested_item:
+				held_item.queue_free()
+				held_item = null
+				v.cure()
+				scrolls += 1
+			else:
+				v.interact()
 	elif event.is_action("ui_cancel") and Input.is_action_just_released("ui_cancel"):
 		SceneHandler.add_popup(Shared.POPUPS[Shared.POPUPS_ENUM.pause])
 	
@@ -150,9 +173,9 @@ func _input(event: InputEvent):
 
 func _set_scrolls(v):
 	scrolls = v
-	node_scroll_counter.text = "%s" % scrolls
+	node_scroll_counter.text = "%s/%s" % [scrolls, Shared.scroll_win_count]
 	scrolls_changed.emit(scrolls)
-	if scrolls >= 15:
+	if scrolls >= Shared.scroll_win_count:
 		SceneHandler.change_main_scene.call_deferred(Shared.SCENES[Shared.SCENES_ENUM.victory])
 
 
@@ -160,7 +183,7 @@ func _set_held_item(v):
 	_last_item = held_item
 
 	if held_item != null:
-		print("Player dropped ", held_item)
+		# print("Player dropped ", held_item)
 		if not held_item.is_inside_tree():
 			held_item.position = global_position
 			_item_containment_node.add_child(held_item)
@@ -169,14 +192,16 @@ func _set_held_item(v):
 
 	held_item = v
 	if held_item == null:
-		node_held_item.texture = null
+		# node_held_item.texture = null
+		node_item.texture = null
 	else:
-		node_held_item.texture = held_item.texture
+		# node_held_item.texture = held_item.texture
+		node_item.texture = held_item.texture
 		if held_item.is_inside_tree():
 			if _item_containment_node == null:
 				_item_containment_node = held_item.get_parent()
 			held_item.get_parent().remove_child(held_item)
-		print("Player picked up ", held_item)
+		# print("Player picked up ", held_item)
 	
 	held_item_changed.emit(held_item)
 
@@ -190,3 +215,14 @@ func _on_interact_area_entered(area):
 	
 	if held_item == null and area is Item:
 		held_item = area
+
+
+func die():
+	await get_tree().process_frame
+	$Death.process_mode = Node.PROCESS_MODE_ALWAYS
+	$Death.play()
+	SceneHandler.main_scene_container.process_mode = PROCESS_MODE_DISABLED
+
+
+func _on_death_finished():
+	SceneHandler.change_main_scene(Shared.SCENES[Shared.SCENES_ENUM.main_menu])

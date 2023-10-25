@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 func _ready():
 	var template = get_node("TextureRect/MarginContainer/VBoxContainer/Template")
@@ -6,7 +6,7 @@ func _ready():
 	for bus in Shared.AUDIO_BUS_INDEX:
 		var i = template.duplicate()
 		i.bus = Shared.AUDIO_BUS_INDEX[bus]
-		vbox.add_child(i)
+		template.add_sibling(i)
 	template.queue_free()
 
 

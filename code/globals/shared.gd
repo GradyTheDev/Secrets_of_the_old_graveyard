@@ -42,10 +42,40 @@ const AUDIO_BUS_NAMES := {
 	SETTING_KEY_AUDIO_VOICE: 'Voice',
 }
 
-var game_time: float # seconds
-var day_night_cycle_duration: float = 5
+signal time_of_day_changed(daytime: bool)
+var game_time: float: set = _set_game_time
+var game_cycle: float
+var day_night_cycle_duration: float = 30
+var daytime: bool = true : set = _set_daytime
 
-## -1.0 to 1.0; -1 is night 1 is day
+var items: Array
+var grave: PackedScene
+var ghost: PackedScene
+var player: Node2D
+
+var scroll_win_count: int = 2
+
+func _set_daytime(v: bool):
+	daytime = v
+	time_of_day_changed.emit(daytime)
+	print('daytime: ', v)
+
+func _set_game_time(new: float):
+	game_time = new
+	game_cycle = get_game_cycle()
+	if game_cycle > 0:
+		# Day
+		if not daytime:
+			daytime = true
+	else:
+		# Night
+		if daytime:
+			daytime = false
+
+
+## -1.0 to 1.0 [br]
+## -1 is night [br]
+## 1 is day [br]
 func get_game_cycle() -> float:
 	return sin(((game_time - floor(game_time / (game_time * 2))) / day_night_cycle_duration) * PI)
 
@@ -73,6 +103,13 @@ func _ready():
 		assert(scene is PackedScene, self.name+": Something went wrong with a scene in POPUPS, enum key = " + str(key))
 
 	SavesManager.setting_changed.connect(_on_setting_changed)
+
+	# Items
+	items.append(load("res://code/items/dagger.tscn"))
+	items.append(load("res://code/items/eye.tscn"))
+
+	grave = load("res://code/other/grave/grave.tscn")
+	ghost = load("res://code/entities/ghost/ghost.tscn")
 
 
 func _on_setting_changed(key: String, value):

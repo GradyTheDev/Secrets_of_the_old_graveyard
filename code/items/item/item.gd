@@ -12,6 +12,13 @@ func _ready():
 		s.texture = texture
 	elif s.texture != null:
 		texture = s.texture
+	
+	Shared.time_of_day_changed.connect(_time_of_day_changed)
+
+
+func _time_of_day_changed(daytime: bool):
+	if not daytime:
+		queue_free()
 
 
 func _to_string():
