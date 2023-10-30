@@ -16,6 +16,14 @@ func _ready():
 	Shared.time_of_day_changed.connect(_time_of_day_changed)
 
 
+func _enter_tree():
+	Shared.active_items.append(self)
+
+
+func _exit_tree():
+	Shared.active_items.erase(self)
+
+
 func _time_of_day_changed(daytime: bool):
 	if not daytime:
 		queue_free()

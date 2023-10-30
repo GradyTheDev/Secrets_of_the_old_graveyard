@@ -8,23 +8,32 @@ extends Node2D
 @onready var node_music_day: AudioStreamPlayer = get_node("AmbientDay")
 @onready var node_music_night: AudioStreamPlayer = get_node("AmbientNight")
 @onready var node_night_music: AudioStreamPlayer = get_node("NightMusic")
+@onready var node_nav_line: Line2D = get_node("NavLine")
 
-var _grave_normal = Vector2i(2, 0)
-var _grave_haunted = Vector2i(3, 0)
-var _walking_path = Vector2i(0, 0)
+var _grave_normal = 2
+var _grave_haunted = 3
 
 var _graves: Array[Grave] = []
 
 func _ready():
+	Graveyard.map = node_graveyard_tilemap
 	node_light.visible = true
 	Shared.game_time = -0.1
 	Shared.time_of_day_changed.connect(_time_of_day_changed)
 	Shared.game_time = 0.1
 
+	var passable_cells := Graveyard.map.get_used_cells_by_id(Graveyard.LAYER_PASSABLE)
+	var lpc = passable_cells.size() -1
+
+	_randomize_graves()
+
+	if get_parent() == get_tree().root:
+		SceneHandler.change_main_scene.call_deferred(self)
+
 
 func _time_of_day_changed(daytime: bool):
 	if daytime:
-		await get_tree().create_timer(2).timeout
+		# await get_tree().create_timer(2).timeout
 		generate_haunted_graves(5)
 		node_music_day.play()
 		node_music_night.stop()
@@ -36,6 +45,7 @@ func _time_of_day_changed(daytime: bool):
 		node_night_music.play()
 		spawn_ghosts()
 
+
 func _process(delta: float):
 	Shared.game_time += delta
 	node_light.energy = remap(Shared.get_game_cycle(), -1, 1, -0.8, -0.5)
@@ -43,23 +53,19 @@ func _process(delta: float):
 func clear_haunted_graves():
 	for grave in _graves:
 		grave.queue_free()
-	
-	var cells = node_graveyard_tilemap.get_used_cells(0)
-	for point in cells:
-		var a = node_graveyard_tilemap.get_cell_atlas_coords(0, point)
-		if a == _grave_haunted:
-			node_graveyard_tilemap.set_cell(0, point, 0, _grave_normal)
 
-func _get_available_graves():
+	Graveyard.reset_haunted_graves()
+
+func _get_available_graves() -> Array[Vector2i]:
 	var normal_graves: Array[Vector2i] = []
 	var haunted_graves: Array[Vector2i] = []
 	var available_graves: Array[Vector2i] = []
 
 	var player_pos := Vector2(node_graveyard_tilemap.local_to_map(Shared.player.position))
 
-	var cells = node_graveyard_tilemap.get_used_cells(0)
+	var cells = node_graveyard_tilemap.get_used_cells(Graveyard.LAYER_GRAVE)
 	for point in cells:
-		var a = node_graveyard_tilemap.get_cell_atlas_coords(0, point)
+		var a = node_graveyard_tilemap.get_cell_source_id(Graveyard.LAYER_GRAVE, point)
 		if a == _grave_normal:
 			normal_graves.append(point)
 		elif a == _grave_haunted:
@@ -85,9 +91,8 @@ func _get_available_graves():
 func get_dirt_tiles() -> Array[Vector2]:
 	var tiles: Array[Vector2] = []
 	var player_on_grid = Vector2(node_graveyard_tilemap.local_to_map(Shared.player.position))
-	for point in node_graveyard_tilemap.get_used_cells(0):
-		if node_graveyard_tilemap.get_cell_atlas_coords(0, point) == _walking_path and \
-			player_on_grid.distance_to(point) > 1:
+	for point in node_graveyard_tilemap.get_used_cells(Graveyard.LAYER_PASSABLE):
+		if player_on_grid.distance_to(point) > 1:
 			tiles.append(Vector2(point))
 	return tiles
 
@@ -109,10 +114,9 @@ func generate_haunted_graves(amount: int):
 		item.position = n
 		node_items.add_child(item)
 
-
 		# Set tile to haunted grave
 		var point = graves[randi_range(0, len(graves)-1)]
-		node_graveyard_tilemap.set_cell(0, point, 0, _grave_haunted)	
+		Graveyard.place_random_grave(point, Graveyard.SOURCE_HAUNTED_GRAVES)
 		
 		# Create and place grave
 		var grave = Shared.grave.instantiate()
@@ -125,7 +129,7 @@ func generate_haunted_graves(amount: int):
 
 func _cured(g: Grave):
 	var point = node_graveyard_tilemap.local_to_map(g.global_position)
-	node_graveyard_tilemap.set_cell(0, point, 0, _grave_normal)
+	node_graveyard_tilemap.set_cell(Graveyard.LAYER_GRAVE, point, _grave_normal, Vector2.ZERO)
 
 
 func _grave_cleanup(grave: Grave):
@@ -135,10 +139,10 @@ func _grave_cleanup(grave: Grave):
 func spawn_ghosts():
 	var tiles := get_dirt_tiles()
 
-	for i in 3:
+	for i in range(Shared.ghosts.size()):
 		var r = randi_range(0, tiles.size()-1)
 		var tile: Vector2 = tiles.pop_at(r)
-		var ghost: Ghost = Shared.ghost.instantiate()
+		var ghost: Ghost = Shared.ghosts[i].instantiate()
 		var pos = node_graveyard_tilemap.map_to_local(tile)
 		node_ghosts.add_child(ghost)
 		ghost.position = pos
@@ -148,6 +152,7 @@ func spawn_ghosts():
 				tiles.erase(x)
 
 
-
-
-
+func _randomize_graves():
+	for cell in Graveyard.get_normal_grave_tiles():
+		Graveyard.remove_grave(cell)
+		Graveyard.place_random_grave(cell)

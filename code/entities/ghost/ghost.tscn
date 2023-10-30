@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvmu0yiletcek"]
+[gd_scene load_steps=14 format=3 uid="uid://cvmu0yiletcek"]
 
 [ext_resource type="Script" path="res://code/entities/ghost/ghost.gd" id="1_pgtt6"]
 [ext_resource type="Texture2D" uid="uid://fcg7474fuqrf" path="res://assets/art/ghost_night.png" id="1_qe422"]
 [ext_resource type="AudioStream" uid="uid://d1fxeqalcngeh" path="res://assets/sound/Spooktober_SoundDesign_1_ghost_chase.ogg" id="3_3j0uu"]
 [ext_resource type="AudioStream" uid="uid://cf4if4m1s2n4i" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Appear.ogg" id="4_qqd06"]
 [ext_resource type="AudioStream" uid="uid://ro8rp34gx4li" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Disappear.ogg" id="5_gw4fi"]
+[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/placeholder_6.png" id="6_60rfy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xcptt"]
 
@@ -13,38 +14,50 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:scale")
+tracks/1/path = NodePath("Sprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:position")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Light:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_tor68"]
@@ -52,26 +65,38 @@ resource_name = "appear"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Appear:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Appear:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Light:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.18]
 }
 
 [sub_resource type="Animation" id="Animation_q7vop"]
@@ -101,32 +126,56 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 5.96046e-08), Vector2(0, 1), Vector2(0, 5.96046e-08)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Light:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.18, 0.1, 0.18]
+}
 
 [sub_resource type="Animation" id="Animation_chglj"]
 resource_name = "disappear"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Disappear:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Disappear:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Light:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5va8o"]
@@ -137,10 +186,13 @@ _data = {
 "disappear": SubResource("Animation_chglj")
 }
 
+[sub_resource type="Gradient" id="Gradient_cvoh3"]
+
 [node name="Ghost" type="Area2D"]
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("1_pgtt6")
+speed = 50.0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xcptt")
@@ -148,10 +200,19 @@ shape = SubResource("CircleShape2D_xcptt")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_qe422")
 
+[node name="Light" type="PointLight2D" parent="Sprite"]
+color = Color(0.171995, 0.406562, 0.525039, 1)
+energy = 0.0
+shadow_enabled = true
+texture = ExtResource("6_60rfy")
+texture_scale = 2.0
+
 [node name="Animator" type="AnimationPlayer" parent="."]
+autoplay = "appear"
 libraries = {
 "": SubResource("AnimationLibrary_5va8o")
 }
+next/appear = &"chase"
 
 [node name="Chase" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_3j0uu")
@@ -169,6 +230,11 @@ bus = &"Voice"
 stream = ExtResource("5_gw4fi")
 max_distance = 120.0
 bus = &"Voice"
+
+[node name="NavLine" type="Line2D" parent="."]
+top_level = true
+width = 3.0
+gradient = SubResource("Gradient_cvoh3")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_changed" from="Animator" to="." method="_on_animator_animation_changed"]

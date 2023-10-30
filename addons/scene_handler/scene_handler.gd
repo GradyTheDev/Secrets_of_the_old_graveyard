@@ -114,6 +114,9 @@ func change_main_scene(value, use_loading_screen: int = 0, min_time_show_loading
 		print(self.name + ": Failed to load next main scene, reason unknown ", value)
 		return
 
+	if value.is_inside_tree():
+		value.get_parent().remove_child(value)
+	
 	current_main_scene_node = value
 	loading_main_scene.emit()
 	main_scene_container.add_child(current_main_scene_node)
@@ -128,7 +131,8 @@ func change_main_scene(value, use_loading_screen: int = 0, min_time_show_loading
 		current_loading_screen is Node \
 		and current_loading_screen.is_inside_tree():
 		await get_tree().create_timer(clamp(min_time_show_loading_screen, 0.01, 10)).timeout
-		current_loading_screen.get_parent().remove_child(current_loading_screen)
+		if is_instance_valid(current_loading_screen) and current_loading_screen.is_inside_tree():
+			current_loading_screen.get_parent().remove_child(current_loading_screen)
 
 
 func add_popup(pack_or_path_or_node) -> Node:

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://daejdjrcjrrgy"]
+
+[ext_resource type="PackedScene" uid="uid://cvmu0yiletcek" path="res://code/entities/ghost/ghost.tscn" id="1_8jgrs"]
+[ext_resource type="Script" path="res://code/entities/ghost_1/ghost_1.gd" id="2_5xl7c"]
+
+[node name="Ghost" instance=ExtResource("1_8jgrs")]
+script = ExtResource("2_5xl7c")
+
+[node name="Sprite" parent="." index="1"]
+modulate = Color(1, 0.811765, 1, 1)
+
+[node name="Light" parent="Sprite" index="0"]
+energy = 0.0

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d11bu8u7jf76i"]
+[gd_scene load_steps=2 format=3 uid="uid://d11bu8u7jf76i"]
+
+[ext_resource type="Script" path="res://code/menus/credits/credits_replacer.gd" id="1_h5r7g"]
 
 [node name="Credits" type="RichTextLabel"]
 anchors_preset = 8
@@ -19,12 +21,17 @@ bbcode_enabled = true
 text = "[center][b][font_size=30]Great game title[/font_size][/b]
 [b]
 - Project Leads - [/b]
+GradyTheDev
 
 [b]- Art - [/b]
+Vulkaara
+Alm4nditte
 
 [b]- Sound - [/b]
+ClairdeLou
 
 [b]- Programming -[/b]
+GradyTheDev
 
 [b]- Writer -[/b]
 
@@ -32,5 +39,5 @@ text = "[center][b][font_size=30]Great game title[/font_size][/b]
 
 [b]- You can find the game at - [/b][/center]
 "
-scroll_following = true
 selection_enabled = true
+script = ExtResource("1_h5r7g")

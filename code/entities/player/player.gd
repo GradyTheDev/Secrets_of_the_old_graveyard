@@ -35,42 +35,6 @@ var _next_point: Vector2
 
 var _item_containment_node: Node
 
-class DirectionCheck:
-	var can_move: bool = false
-	var grid_point: Vector2
-	var grid_position: Vector2
-
-	func _init(_can_move: bool, _grid_point: Vector2, _grid_position: Vector2):
-		can_move = _can_move
-		grid_point = _grid_point
-		grid_position = _grid_position
-
-
-## Only call this from the physics thread, due to the raycast
-func can_move_to_node_in_direction(direction: Vector2) -> DirectionCheck:
-	direction = direction
-
-	# Grid check
-	var current_grid_point := (position - _offset) / _tile_size
-
-	var target_grid_point = current_grid_point.round() + direction
-	var target_grid_position = target_grid_point * _tile_size + _offset
-
-	var dir = current_grid_point.direction_to(target_grid_point)
-	var is_movement_on_grid_line = not (dir.x != 0 and dir.y != 0)
-
-	if not is_movement_on_grid_line:
-		return DirectionCheck.new(false, target_grid_point, target_grid_position)
-
-	# Physics check
-	node_wall_detector.target_position = target_grid_position - position
-	node_wall_detector.force_raycast_update()
-	if node_wall_detector.is_colliding():
-		return DirectionCheck.new(false, target_grid_point, target_grid_position)
-	else:
-		return DirectionCheck.new(true, target_grid_point, target_grid_position)
-
-
 func _ready():
 	# snap node to grid
 	position = snap_point_to_grid(position)
@@ -105,12 +69,17 @@ func _physics_process(delta: float):
 	# Check all inputs in input buffer, in reverse order (latest input to oldest input)
 	for i in range(_input_buffer.size() - 1, -1, -1):
 		direction = _input_buffer[i]
-		var check = can_move_to_node_in_direction(direction)
-		if check.can_move:
-			_next_point = check.grid_position
-			break
+
+		var to = Graveyard.stop_at_first_intersection(global_position, global_position + direction * speed)
+		node_wall_detector.target_position = to - position
+		if _next_point != to and \
+			Graveyard.is_on_grid(to) == Graveyard.ON_GRID.INTERSECTION and \
+			Graveyard.is_tile_passable(Graveyard.world_to_grid(to)):
+				_next_point = to
+				break
 	# End: Calculate movement
 
+	var s = position
 	# Start: Move
 	if position.distance_to(_next_point) == 0:
 		return
@@ -126,8 +95,8 @@ func _physics_process(delta: float):
 	position = position.round() # fixes grid based movement problems, by rounding sub-pixel movement 
 	if col != null:
 		print('player collided with ', col)
-
 	# End: Move
+
 
 func _input(event: InputEvent):
 	if event.is_action("drop_item") and Input.is_action_just_released("drop_item"):

@@ -50,14 +50,20 @@ var daytime: bool = true : set = _set_daytime
 
 var items: Array
 var grave: PackedScene
-var ghost: PackedScene
+var ghosts: Array[PackedScene]
 var player: Node2D
 
-var scroll_win_count: int = 2
+var active_items: Array[Item]
+var active_ghosts: Array[Ghost]
+
+var scroll_win_count: int = 13
 
 func _set_daytime(v: bool):
 	daytime = v
 	time_of_day_changed.emit(daytime)
+	for x in active_ghosts:
+		# not emitting to the ghosts for some reason
+		x._time_of_day_changed(daytime)
 	print('daytime: ', v)
 
 func _set_game_time(new: float):
@@ -109,8 +115,13 @@ func _ready():
 	items.append(load("res://code/items/eye.tscn"))
 
 	grave = load("res://code/other/grave/grave.tscn")
-	ghost = load("res://code/entities/ghost/ghost.tscn")
 
+	ghosts.append(load("res://code/entities/ghost_1/ghost_1.tscn"))
+	ghosts.append(load("res://code/entities/ghost_2/ghost_2.tscn"))
+	ghosts.append(load("res://code/entities/ghost_3/ghost_3.tscn"))
+
+func get_random_ghost() -> Ghost:
+	return ghosts[randi_range(0, ghosts.size()-1)].instantiate()
 
 func _on_setting_changed(key: String, value):
 	match key:
@@ -178,3 +189,28 @@ func _set_display(value):
 	
 	get_window().current_screen = value
 	
+
+
+func _input(event):
+	
+
+	if event is InputEventKey:
+		if not event.is_pressed():
+			match event.keycode:
+				KEY_F11:
+					var m = DisplayServer.window_get_mode()
+					if m == DisplayServer.WINDOW_MODE_FULLSCREEN:
+						DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+					else:
+						DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+			if not OS.is_debug_build(): return
+			match event.keycode:
+				KEY_PAGEUP:
+					game_time = 29
+				KEY_PAGEDOWN:
+					game_time = 0.1
+				KEY_HOME:
+					player.scrolls = 0
+				KEY_END:
+					player.scrolls += 1
