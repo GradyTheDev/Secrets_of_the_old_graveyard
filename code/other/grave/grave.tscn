@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://fcg7474fuqrf" path="res://assets/art/ghost_night.png" id="3_oqh8m"]
 [ext_resource type="AudioStream" uid="uid://bu202kb37x2oc" path="res://assets/sound/Spooktober_SoundDesign_1_GhostTalk_3.ogg" id="4_iajes"]
 [ext_resource type="AudioStream" uid="uid://c627a13gd42cs" path="res://assets/sound/Spooktober_SoundDesign_1_player_ghost_interact.ogg" id="5_o5m6h"]
-[ext_resource type="AudioStream" uid="uid://ro8rp34gx4li" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Disappear.ogg" id="6_iv213"]
+[ext_resource type="AudioStream" uid="uid://c4fd3ggas1cyd" path="res://assets/sound/Spooktober_Music_Ghost_Cure.ogg" id="6_c3ffe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vysbi"]
 size = Vector2(71, 71)
@@ -134,7 +134,8 @@ volume_db = -10.0
 bus = &"Voice"
 
 [node name="Cured" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_iv213")
+stream = ExtResource("6_c3ffe")
+volume_db = -5.0
 bus = &"Voice"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dmt0wljcg610q" path="res://code/entities/player/player.tscn" id="1_x6nmr"]
 [ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="2_0jk0x"]
 [ext_resource type="TileSet" uid="uid://dxuv0dng7m3de" path="res://code/levels/game_world/game_world_tileset.tres" id="3_ui5jk"]
-[ext_resource type="AudioStream" uid="uid://cax851xep6fpt" path="res://assets/sound/Spooktober_SoundDesign_1_Ambience_Day_1.0.ogg" id="5_ian03"]
+[ext_resource type="AudioStream" uid="uid://c8db83whi62v7" path="res://assets/sound/Spooktober_Music_Day_1.0.ogg" id="5_na6k3"]
 [ext_resource type="AudioStream" uid="uid://8bt537doj6o2" path="res://assets/sound/Spooktober_SoundDesign_1_Ambience_Night_1.55.ogg" id="6_fyhem"]
-[ext_resource type="AudioStream" uid="uid://d24fdo5b615fs" path="res://assets/sound/Spooktober_Music_Night_1.0.ogg" id="7_k68m2"]
+[ext_resource type="AudioStream" uid="uid://rj2imge38jab" path="res://assets/sound/Spooktober_Music_Night_1.1.ogg" id="7_m5y7b"]
 
 [sub_resource type="Environment" id="Environment_3tael"]
 background_mode = 1
@@ -74,18 +74,21 @@ scale = Vector2(4.05, 276)
 energy = 0.0
 
 [node name="AmbientDay" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_ian03")
-volume_db = -12.0
+process_mode = 3
+stream = ExtResource("5_na6k3")
+volume_db = -23.0
 bus = &"Music"
 
 [node name="AmbientNight" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("6_fyhem")
 volume_db = -12.0
 bus = &"Music"
 
 [node name="NightMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_k68m2")
-volume_db = -15.0
+process_mode = 3
+stream = ExtResource("7_m5y7b")
+volume_db = -23.0
 bus = &"Music"
 
 [node name="NavLine" type="Line2D" parent="."]

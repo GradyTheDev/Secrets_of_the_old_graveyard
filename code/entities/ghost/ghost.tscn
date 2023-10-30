@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://code/entities/ghost/ghost.gd" id="1_pgtt6"]
 [ext_resource type="Texture2D" uid="uid://fcg7474fuqrf" path="res://assets/art/ghost_night.png" id="1_qe422"]
-[ext_resource type="AudioStream" uid="uid://d1fxeqalcngeh" path="res://assets/sound/Spooktober_SoundDesign_1_ghost_chase.ogg" id="3_3j0uu"]
+[ext_resource type="AudioStream" uid="uid://ccy5ow00scoml" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Chase_1.0.ogg" id="4_6osuf"]
 [ext_resource type="AudioStream" uid="uid://cf4if4m1s2n4i" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Appear.ogg" id="4_qqd06"]
 [ext_resource type="AudioStream" uid="uid://ro8rp34gx4li" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Disappear.ogg" id="5_gw4fi"]
 [ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/placeholder_6.png" id="6_60rfy"]
@@ -215,8 +215,8 @@ libraries = {
 next/appear = &"chase"
 
 [node name="Chase" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_3j0uu")
-volume_db = -5.0
+stream = ExtResource("4_6osuf")
+volume_db = -11.0
 autoplay = true
 max_distance = 90.0
 bus = &"Voice"
