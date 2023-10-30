@@ -359,6 +359,8 @@ texture_region_size = Vector2i(24, 24)
 14:10/0/terrain = 0
 14:10/0/terrains_peering_bit/left_side = 0
 14:10/0/terrains_peering_bit/top_side = 0
+4:0/0 = 0
+6:0/0 = 0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_s2q11"]
 polygon = PackedVector2Array(-9.63433, -6.71752, -6.45235, -10.4298, 6.62913, -10.253, 9.45756, -5.3033, 6.0988, 1.59099, 7.15946, 10.4298, -6.27557, 10.4298, -5.39169, 3.18198)

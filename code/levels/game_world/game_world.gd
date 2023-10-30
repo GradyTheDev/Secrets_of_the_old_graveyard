@@ -9,6 +9,18 @@ extends Node2D
 @onready var node_music_night: AudioStreamPlayer = get_node("AmbientNight")
 @onready var node_night_music: AudioStreamPlayer = get_node("NightMusic")
 @onready var node_nav_line: Line2D = get_node("NavLine")
+@onready var node_night: Node2D = get_node("night")
+@onready var node_day: Node2D = get_node("day")
+
+# @onready var node_background_b: Sprite2D = get_node("filler_day")
+
+@export var image_night: Texture
+@export var image_day: Texture
+
+
+var color_white := Color.WHITE
+var color_transparent := Color(1,1,1,0)
+
 
 var _grave_normal = 2
 var _grave_haunted = 3
@@ -31,14 +43,24 @@ func _ready():
 		SceneHandler.change_main_scene.call_deferred(self)
 
 
+var _vis_time := 2
 func _time_of_day_changed(daytime: bool):
 	if daytime:
-		# await get_tree().create_timer(2).timeout
+		var t = node_night.create_tween()
+		t.tween_property(node_night, 'modulate', color_transparent, 2)
+		t = node_day.create_tween()
+		t.tween_property(node_day, 'modulate', color_white, 2)
+
 		generate_haunted_graves(5)
 		node_music_day.play()
 		node_music_night.stop()
 		node_night_music.stop()
 	else:
+		var t = node_day.create_tween()
+		t.tween_property(node_day, 'modulate', color_transparent, 2)
+		t = node_night.create_tween()
+		t.tween_property(node_night, 'modulate', color_white, 2)
+
 		clear_haunted_graves()
 		node_music_day.stop()
 		node_music_night.play()

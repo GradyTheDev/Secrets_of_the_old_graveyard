@@ -59,12 +59,22 @@ func snap_point_to_grid(point: Vector2) -> Vector2:
 	return (point / _tile_size).floor() * _tile_size + _offset
 
 
+var _last_direction: Vector2 = Vector2.DOWN
 func _physics_process(delta: float):
 	# Start: Calculate movement
 	var direction = DIRECTION_NONE
 	
 	if _input_buffer.size() == 0:
 		_next_point = position
+		match _last_direction:
+			Vector2.RIGHT:
+				node_sprite.play('idle_right')
+			Vector2.DOWN:
+				node_sprite.play('idle_down')
+			Vector2.LEFT:
+				node_sprite.play('idle_left')
+			Vector2.UP:
+				node_sprite.play('idle_up')
 	
 	# Check all inputs in input buffer, in reverse order (latest input to oldest input)
 	for i in range(_input_buffer.size() - 1, -1, -1):
@@ -76,6 +86,17 @@ func _physics_process(delta: float):
 			Graveyard.is_on_grid(to) == Graveyard.ON_GRID.INTERSECTION and \
 			Graveyard.is_tile_passable(Graveyard.world_to_grid(to)):
 				_next_point = to
+				_last_direction = direction
+				# animation
+				match _last_direction:
+					Vector2.RIGHT:
+						node_sprite.play('walk_right')
+					Vector2.DOWN:
+						node_sprite.play('walk_down')
+					Vector2.LEFT:
+						node_sprite.play('walk_left')
+					Vector2.UP:
+						node_sprite.play('walk_up')
 				break
 	# End: Calculate movement
 
@@ -86,10 +107,15 @@ func _physics_process(delta: float):
 	
 	var motion = position.move_toward(_next_point, speed * delta) - position
 
-	var dir = position.direction_to(_next_point).x
-	if dir != 0:
-		node_sprite.flip_h = dir < 0
-		node_item.position.x = -dir * 8
+	var dir = position.direction_to(_next_point)
+	if dir.x != 0:
+		# node_sprite.flip_h = dir < 0
+		node_item.position.x = -dir.x * 8
+		node_item.flip_h = dir.x < 0
+	if dir.y != 0:
+		# node_sprite.flip_h = dir < 0
+		node_item.position.x = -dir.y * 8
+		node_item.flip_h = dir.y < 0
 
 	var col := move_and_collide(motion)
 	position = position.round() # fixes grid based movement problems, by rounding sub-pixel movement 
