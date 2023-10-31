@@ -1,3 +1,5 @@
+
+![](https://github.com/GradyTheDev/Secrets_of_the_old_graveyard/blob/11c5435929c762fd3c394d0a5c084edce71af346/assets/art/mainmenu.png)  
 # Secrets of the old graveyard  
 
 An evil curse has overtaken the town.  
