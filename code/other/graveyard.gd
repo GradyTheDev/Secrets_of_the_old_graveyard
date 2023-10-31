@@ -91,7 +91,7 @@ static func convert_arr_of_vec2i_to_vec2(arr: Array[Vector2i]) -> Array[Vector2]
 
 ## returns values in grid space
 static func get_walkable_tiles() -> Array[Vector2i]:
-	return map.get_used_cells_by_id(0, 0, Vector2(0, 0))
+	return map.get_used_cells_by_id(LAYER_PASSABLE)
 
 ## returns values in grid space
 static func get_normal_grave_tiles() -> Array[Vector2i]:
@@ -242,3 +242,12 @@ static func set_nav_weight(world_position: Vector2, weight: float = 1):
 
 static func get_nav_weight(world_position: Vector2) -> float:
 	return nav.get_point_weight_scale(nav.get_closest_point(world_position))
+
+static func spawn_pumpkins(n: int, to: Node2D):
+	for i in range(n):
+		var cells = Graveyard.get_walkable_tiles()
+		var cell = cells[ randi_range(0, len(cells)-1) ]
+		var pos = Graveyard.grid_to_world(cell)
+		var p: Node2D = load("res://code/other/pumpkin/pumpkin.tscn").instantiate()
+		to.add_child(p)
+		p.position = pos

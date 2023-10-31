@@ -47,8 +47,9 @@ func _physics_process(delta):
 	elif dis_from_player > 1:
 		if _time_since_pathing > 0.5:
 			_prime()
-	elif _time_since_pathing > 0.5:
+	elif _time_since_pathing > 1:
 		_prime()
+
 	if _move_to == -Vector2.ONE:
 		_prime()
 		
@@ -61,8 +62,8 @@ func _physics_process(delta):
 	if _move_to != position:
 		var dis = global_position.distance_to(Shared.player.global_position)
 		var s = speed
-		if dis/24.0 < 3.0:
-			s * 0.5
+		if dis/24.0 < 5.0:
+			s * 0.3
 		
 		Graveyard.set_nav_weight(position)
 		position = position.move_toward(_move_to, s * delta)

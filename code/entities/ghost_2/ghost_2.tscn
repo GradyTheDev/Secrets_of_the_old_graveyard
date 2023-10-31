@@ -8,6 +8,3 @@ script = ExtResource("2_n4c0c")
 
 [node name="Sprite" parent="." index="1"]
 modulate = Color(1, 1, 0.0823529, 1)
-
-[node name="Light" parent="Sprite" index="0"]
-energy = 0.0

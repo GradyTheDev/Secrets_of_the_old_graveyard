@@ -11,10 +11,16 @@ config_version=5
 [application]
 
 config/name="Secrets of the old graveyard"
+config/description="An evil curse has overtaken the world,
+you must find the secrets to it's undoing.
+
+This game was made for the spooktober 2023 game jam."
 config/tags=PackedStringArray("in_progress")
 run/main_scene="res://code/menus/launcher/launcher.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/art/game_icon.webp"
+config/windows_native_icon="res://assets/art/game_icon.ico"
+buildtools/version="1.0.0"
 
 [audio]
 

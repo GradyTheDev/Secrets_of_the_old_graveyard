@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cnjavxes5y3hb" path="res://code/game_world_render_size.tscn" id="3_2g75d"]
 [ext_resource type="AudioStream" uid="uid://cxkhuauilpw57" path="res://assets/sound/Spooktober_SoundDesign_1_Player_Die.ogg" id="4_jr2wo"]
 [ext_resource type="Texture2D" uid="uid://b6ry43xd3l4ij" path="res://assets/art/scroll.png" id="5_0kog6"]
-[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/placeholder_6.png" id="5_15fb8"]
+[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/circle.png" id="6_dfmlg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm0bs"]
 size = Vector2(23, 23)
@@ -512,7 +512,7 @@ scale = Vector2(3, 3)
 color = Color(0.839216, 0.580392, 0.235294, 1)
 energy = 0.2
 shadow_enabled = true
-texture = ExtResource("5_15fb8")
+texture = ExtResource("6_dfmlg")
 
 [node name="HeldItem" type="Sprite2D" parent="."]
 position = Vector2(-7, 5)

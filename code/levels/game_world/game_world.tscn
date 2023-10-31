@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bbx2y3axaw0h4"]
+[gd_scene load_steps=16 format=3 uid="uid://bbx2y3axaw0h4"]
 
 [ext_resource type="Script" path="res://code/levels/game_world/game_world.gd" id="1_buwq1"]
 [ext_resource type="PackedScene" uid="uid://dmt0wljcg610q" path="res://code/entities/player/player.tscn" id="1_x6nmr"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://c8db83whi62v7" path="res://assets/sound/Spooktober_Music_Day_1.0.ogg" id="5_na6k3"]
 [ext_resource type="AudioStream" uid="uid://8bt537doj6o2" path="res://assets/sound/Spooktober_SoundDesign_1_Ambience_Night_1.55.ogg" id="6_fyhem"]
 [ext_resource type="AudioStream" uid="uid://rj2imge38jab" path="res://assets/sound/Spooktober_Music_Night_1.1.ogg" id="7_m5y7b"]
+[ext_resource type="Texture2D" uid="uid://b6ry43xd3l4ij" path="res://assets/art/scroll.png" id="10_lm6s3"]
 
 [sub_resource type="Gradient" id="Gradient_8m0np"]
 offsets = PackedFloat32Array(0)
@@ -105,6 +106,8 @@ format = 2
 
 [node name="Graves" type="Node2D" parent="."]
 
+[node name="Deco" type="Node2D" parent="."]
+
 [node name="Ghosts" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
@@ -142,3 +145,7 @@ bus = &"Music"
 points = PackedVector2Array(96, -18, 13, -12)
 width = 2.0
 default_color = Color(1, 0, 0.117647, 1)
+
+[node name="Scroll" type="Sprite2D" parent="."]
+position = Vector2(-239, -47)
+texture = ExtResource("10_lm6s3")

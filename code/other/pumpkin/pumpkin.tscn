@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv02orx3s62mf"]
+
+[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/circle.png" id="1_kf6kp"]
+[ext_resource type="Script" path="res://code/other/pumpkin/pumpkin.gd" id="2_y1v0j"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rhax5"]
+load_path = "res://.godot/imported/nightdayPumpkins.png-6efe192b973eff5431e2dab3f3c04937.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsm5n"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_rhax5")
+region = Rect2(0, 0, 24, 24)
+
+[node name="Pumpkin" type="Sprite2D"]
+texture = SubResource("AtlasTexture_lsm5n")
+script = ExtResource("2_y1v0j")
+
+[node name="Light" type="PointLight2D" parent="."]
+energy = 0.0
+texture = ExtResource("1_kf6kp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

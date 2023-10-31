@@ -11,12 +11,13 @@ extends Node2D
 @onready var node_nav_line: Line2D = get_node("NavLine")
 @onready var node_night: Node2D = get_node("night")
 @onready var node_day: Node2D = get_node("day")
+@onready var node_deco: Node2D = get_node("Deco")
+@onready var moving_scroll: Node2D = get_node("Scroll")
 
 # @onready var node_background_b: Sprite2D = get_node("filler_day")
 
 @export var image_night: Texture
 @export var image_day: Texture
-
 
 var color_white := Color.WHITE
 var color_transparent := Color(1,1,1,0)
@@ -38,6 +39,7 @@ func _ready():
 	var lpc = passable_cells.size() -1
 
 	_randomize_graves()
+	Graveyard.spawn_pumpkins(5, node_deco)
 
 	if get_parent() == get_tree().root:
 		SceneHandler.change_main_scene.call_deferred(self)
@@ -152,6 +154,18 @@ func generate_haunted_graves(amount: int):
 func _cured(g: Grave):
 	var point = node_graveyard_tilemap.local_to_map(g.global_position)
 	node_graveyard_tilemap.set_cell(Graveyard.LAYER_GRAVE, point, _grave_normal, Vector2.ZERO)
+	moving_scroll.position = g.position
+	var t = moving_scroll.create_tween()
+	t.tween_property(moving_scroll, 'scale', Vector2.ONE, 0.3)
+	# t.tween_property(moving_scroll, 'position', Shared.player.position, 1.5)
+	t.tween_method(_fe, 0, 1, 1.5)
+	t.tween_property(moving_scroll, 'scale', Vector2(0.1,0.1), 0.3)
+	t.tween_property(moving_scroll, 'position', Vector2(-30,-30), 0)
+
+func _fe(v):
+	Shared.player.position
+	moving_scroll.position = moving_scroll.position.move_toward(Shared.player.position, 1)
+
 
 
 func _grave_cleanup(grave: Grave):

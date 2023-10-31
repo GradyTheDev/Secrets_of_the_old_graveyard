@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://code/entities/ghost/ghost.gd" id="1_pgtt6"]
 [ext_resource type="Texture2D" uid="uid://fcg7474fuqrf" path="res://assets/art/ghost_night.png" id="1_qe422"]
+[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/circle.png" id="3_y2s6y"]
 [ext_resource type="AudioStream" uid="uid://ccy5ow00scoml" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Chase_1.0.ogg" id="4_6osuf"]
 [ext_resource type="AudioStream" uid="uid://cf4if4m1s2n4i" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Appear.ogg" id="4_qqd06"]
 [ext_resource type="AudioStream" uid="uid://ro8rp34gx4li" path="res://assets/sound/Spooktober_SoundDesign_1_Ghost_Disappear.ogg" id="5_gw4fi"]
-[ext_resource type="Texture2D" uid="uid://cro1pq7t6vd07" path="res://assets/art/placeholder_6.png" id="6_60rfy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xcptt"]
 
@@ -204,7 +204,7 @@ texture = ExtResource("1_qe422")
 color = Color(0.171995, 0.406562, 0.525039, 1)
 energy = 0.0
 shadow_enabled = true
-texture = ExtResource("6_60rfy")
+texture = ExtResource("3_y2s6y")
 texture_scale = 2.0
 
 [node name="Animator" type="AnimationPlayer" parent="."]

@@ -19,8 +19,7 @@ size_flags_vertical = 4
 focus_mode = 2
 bbcode_enabled = true
 text = "[center][b][font_size=30]Great game title[/font_size][/b]
-[b]
-- Project Leads - [/b]
+[b]- Project Lead - [/b]
 GradyTheDev
 
 [b]- Art - [/b]
@@ -33,11 +32,11 @@ ClairdeLou
 [b]- Programming -[/b]
 GradyTheDev
 
-[b]- Writer -[/b]
+[b]- You can find the game at - [/b]
+https://gradythedev.itch.io/secrets-of-the-old-graveyard
+https://github.com/GradyTheDev/Secrets_of_the_old_graveyard
+[/center]
 
-[b]- Misc -[/b]
-
-[b]- You can find the game at - [/b][/center]
 "
 selection_enabled = true
 script = ExtResource("1_h5r7g")
